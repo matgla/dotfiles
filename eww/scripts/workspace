@@ -1,0 +1,24 @@
+#!/bin/python3
+
+import json
+import subprocess
+import argparse
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("-w", required=True)
+
+args, _ = parser.parse_known_args()
+
+rc = subprocess.run(["i3-msg", "-t", "get_workspaces"], capture_output=True)
+
+o = json.loads(rc.stdout)
+
+active = []
+for i in o:
+  active.append(i["num"])
+
+if (int(args.w) in active):
+  print("")
+else:
+  print("")

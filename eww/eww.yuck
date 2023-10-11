@@ -1,0 +1,88 @@
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspaces)
+    (music)
+    (sidestuff)))
+
+(deflisten workspace_1 "scripts/workspace -w 1")
+(deflisten workspace_2 "scripts/workspace -w 2")
+(deflisten workspace_3 "scripts/workspace -w 3")
+(deflisten workspace_4 "scripts/workspace -w 4")
+(deflisten workspace_5 "scripts/workspace -w 5")
+(deflisten workspace_6 "scripts/workspace -w 6")
+(deflisten workspace_7 "scripts/workspace -w 7")
+(deflisten workspace_8 "scripts/workspace -w 8")
+(deflisten workspace_9 "scripts/workspace -w 9")
+(deflisten workspace_0 "scripts/workspace -w 0")
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (metric :label "🔊"
+            :value volume
+            :onchange "amixer -D pulse sset Master {}%")
+    (metric :label ""
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")
+    (metric :label "💾"
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange "")
+    time))
+
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "i3-msg 'workspace 1'" workspace_1)
+    (button :onclick "i3-msg 'workspace 2'" workspace_2)
+    (button :onclick "i3-msg 'workspace 3'" workspace_3)
+    (button :onclick "i3-msg 'workspace 4'" workspace_4)
+    (button :onclick "i3-msg 'workspace 5'" workspace_5)
+    (button :onclick "i3-msg 'workspace 6'" workspace_6)
+    (button :onclick "i3-msg 'workspace 7'" workspace_7)
+    (button :onclick "i3-msg 'workspace 8'" workspace_8)
+    (button :onclick "i3-msg 'workspace 9'" workspace_9)
+    (button :onclick "i3-msg 'workspace 0'" workspace_0)
+    ))
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {music != "" ? "🎵${music}" : ""}))
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d, %Y'")
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "2px"
+                      :width "90%"
+                      :height "16px"
+                      :anchor "top center")
+  :wm-ignore false
+  (bar))
