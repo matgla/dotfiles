@@ -1,19 +1,11 @@
 (defwidget bar []
   (centerbox :orientation "h"
-    (workspaces)
+    (workspace_widget)
     (music)
     (sidestuff)))
 
-(deflisten workspace_1 "scripts/workspace -w 1")
-(deflisten workspace_2 "scripts/workspace -w 2")
-(deflisten workspace_3 "scripts/workspace -w 3")
-(deflisten workspace_4 "scripts/workspace -w 4")
-(deflisten workspace_5 "scripts/workspace -w 5")
-(deflisten workspace_6 "scripts/workspace -w 6")
-(deflisten workspace_7 "scripts/workspace -w 7")
-(deflisten workspace_8 "scripts/workspace -w 8")
-(deflisten workspace_9 "scripts/workspace -w 9")
-(deflisten workspace_0 "scripts/workspace -w 0")
+(deflisten workspaces
+  `/home/mateusz/.config/eww/scripts/workspace`)
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
@@ -28,22 +20,13 @@
             :onchange "")
     time))
 
-(defwidget workspaces []
+(defwidget workspace_widget []
   (box :class "workspaces"
        :orientation "h"
        :space-evenly true
        :halign "start"
        :spacing 10
-    (button :onclick "i3-msg 'workspace 1'" workspace_1)
-    (button :onclick "i3-msg 'workspace 2'" workspace_2)
-    (button :onclick "i3-msg 'workspace 3'" workspace_3)
-    (button :onclick "i3-msg 'workspace 4'" workspace_4)
-    (button :onclick "i3-msg 'workspace 5'" workspace_5)
-    (button :onclick "i3-msg 'workspace 6'" workspace_6)
-    (button :onclick "i3-msg 'workspace 7'" workspace_7)
-    (button :onclick "i3-msg 'workspace 8'" workspace_8)
-    (button :onclick "i3-msg 'workspace 9'" workspace_9)
-    (button :onclick "i3-msg 'workspace 0'" workspace_0)
+    (literal :content workspaces)
     ))
 
 (defwidget music []
@@ -82,7 +65,8 @@
   :geometry (geometry :x "0%"
                       :y "2px"
                       :width "90%"
-                      :height "16px"
+                      :height "1%"
                       :anchor "top center")
+  :exclusive true 
   :wm-ignore false
   (bar))

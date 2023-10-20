@@ -1,24 +1,39 @@
 #!/bin/python3
 
-import json
 import subprocess
-import argparse
+import os
+import socket
 
-parser = argparse.ArgumentParser()
 
-parser.add_argument("-w", required=True)
+def update_workspaces(active):
+    icons = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    workspaces = icons
 
-args, _ = parser.parse_known_args()
+    widget = "(box :spacing 10 :space-evenly true "
+    for i in range(0, 10):
+        if i == active - 1 or (i == 9 and active == 0):
+            button_active = "workspace_active"
+        else:
+            button_active = "workspace_inactive"
 
-rc = subprocess.run(["i3-msg", "-t", "get_workspaces"], capture_output=True)
+        button = '(button :class "{button_active}" :onclick "" "{icon}")'.format(
+            button_active=button_active, icon=icons[i]
+        )
+        widget += " " + button
 
-o = json.loads(rc.stdout)
+    widget += ")"
+    subprocess.run(f"echo '{widget}'", shell=True)
 
-active = []
-for i in o:
-  active.append(i["num"])
 
-if (int(args.w) in active):
-  print("")
-else:
-  print("")
+hyprland_socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+hyprland_server = f'/tmp/hypr/{os.environ["HYPRLAND_INSTANCE_SIGNATURE"]}/.socket2.sock'
+print(hyprland_server)
+hyprland_socket.connect(hyprland_server)
+
+update_workspaces(1)
+
+while True:
+    event = hyprland_socket.recv(4096).decode("utf-8")
+    for item in event.split("\n"):
+        if "workspace>>" == item[0:11]:
+            update_workspaces(int(item[-1]))
