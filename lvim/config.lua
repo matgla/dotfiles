@@ -193,6 +193,9 @@ lvim.plugins = {
 
       }
     end,
+  },
+  {
+    'elkowar/yuck.vim'
   }
 
 }
