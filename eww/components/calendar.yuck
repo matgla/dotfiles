@@ -1,0 +1,6 @@
+(defwidget calendar_icon [] 
+  (label 
+    :class "calendar"
+    :text " "
+  )
+)

@@ -1,0 +1,8 @@
+(include "common/components/music.yuck")
+
+(defwidget center_top_bar[] 
+  (box 
+    :class "center_top_bar"
+    (music)
+  )
+)

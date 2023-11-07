@@ -1,0 +1,8 @@
+(defwidget separator []
+  (label
+    :valign "center"
+    :class "space"
+    :text "|"
+  )
+)
+

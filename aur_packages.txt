@@ -1,0 +1,3 @@
+swww
+python-pywal
+python-pyalsaaudio-git

@@ -1,0 +1,28 @@
+(include "common/components/clock.yuck")
+(include "common/components/separator.yuck")
+(include "common/components/power.yuck")
+(include "common/components/ram.yuck")
+(include "common/components/cpu.yuck")
+(include "common/components/calendar.yuck")
+(include "common/components/battery.yuck")
+
+(defwidget right_top_bar [] 
+  (box 
+      :class "right_top_bar"
+      :space-evenly false
+      :spacing 5 
+      :valign "center"
+      :halign "end"
+    (cpu)
+    (separator)
+    (ram)
+    (separator)
+    (clock)
+    (separator)
+    (calendar_icon)
+    (box :visible {battery_enable != false} (separator) (battery))
+    (separator)
+    (power)
+  )
+)
+

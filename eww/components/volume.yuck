@@ -1,0 +1,11 @@
+(defpoll volume_icon 
+  :interval "1s"
+  `common/scripts/volume.py --icon`)
+
+(defwidget volume [] 
+  (label
+    :class "volume_icon"
+    :text volume_icon 
+  )
+)
+

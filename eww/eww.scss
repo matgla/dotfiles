@@ -23,7 +23,7 @@
   padding-left: 0.5em;
 }
 
-.modules_left {
+.left_top_bar {
   @extend %modules;
   padding-right: 10px;
 }
@@ -49,13 +49,13 @@
   font-size: 12px;
 }
 
-.modules_right {
+.right_top_bar {
   @extend %modules;
   padding-right: 14px;
 }
 
 
-.modules_center {
+.center_top_bar {
   @extend %modules;
   padding-right: 1em;
 }

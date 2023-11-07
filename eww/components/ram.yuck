@@ -1,0 +1,18 @@
+(defwidget ram []
+  (box 
+    :space-evenly false 
+    :spacing 4
+    :valign "center" 
+    (label :valign "center" :text " ")
+    (label 
+      :valign "center" 
+      :xalign 1 
+      :text {round(EWW_RAM["used_mem"]/1024/1024/1024, 1)}
+    )
+    (label :valign "center" :text "G")
+    (label :valign "center" :text "/")
+    (label :valign "center" :text {round(EWW_RAM["total_mem"]/1024/1024/1024, 1)})
+    (label :valign "center" :text "G")
+  )
+)
+

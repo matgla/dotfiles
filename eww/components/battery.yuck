@@ -1,0 +1,30 @@
+(defwidget battery []
+  (box
+    :space-evenly false 
+    :spacing 8 
+    (label :text { EWW_BATTERY["BAT1"].status != "Charging" ?
+      (EWW_BATTERY["BAT1"].capacity < 5 ? "󱃍":
+      EWW_BATTERY["BAT1"].capacity < 15 ? "󰁺":
+      EWW_BATTERY["BAT1"].capacity < 25 ? "󰁻":
+      EWW_BATTERY["BAT1"].capacity < 35 ? "󰁼":
+      EWW_BATTERY["BAT1"].capacity < 45 ? "󰁽":
+      EWW_BATTERY["BAT1"].capacity < 55 ? "󰁾":
+      EWW_BATTERY["BAT1"].capacity < 65 ? "󰁿":
+      EWW_BATTERY["BAT1"].capacity < 75 ? "󰂀":
+      EWW_BATTERY["BAT1"].capacity < 85 ? "󰂁":
+      EWW_BATTERY["BAT1"].capacity < 95 ? "󰂂":"󰁹") : (
+      EWW_BATTERY["BAT1"].capacity < 5 ?  "󰢟":
+      EWW_BATTERY["BAT1"].capacity < 15 ? "󰢜":
+      EWW_BATTERY["BAT1"].capacity < 25 ? "󰂆":
+      EWW_BATTERY["BAT1"].capacity < 35 ? "󰂇":
+      EWW_BATTERY["BAT1"].capacity < 45 ? "󰂈":
+      EWW_BATTERY["BAT1"].capacity < 55 ? "":
+      EWW_BATTERY["BAT1"].capacity < 65 ? "󰂉":
+      EWW_BATTERY["BAT1"].capacity < 75 ? "":
+      EWW_BATTERY["BAT1"].capacity < 85 ? "󰂊":
+      EWW_BATTERY["BAT1"].capacity < 95 ? "󰂋":"󰂅"
+      )
+    })
+  )
+)
+

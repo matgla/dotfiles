@@ -1,0 +1,35 @@
+(defwidget cpu []
+  (box  
+    :space-evenly false 
+    :spacing 4 
+    (label :valign "center" :text "󰍛 ")
+    (box :class "cpu_graph"
+      (graph 
+        :width 40
+        :value {EWW_CPU["avg"]}
+        :thickness 2 
+        :time-range "30s"
+        :min 0
+        :max 100
+        :dynamic false
+        :line-style "round"
+      )
+    )
+    (box :space-evenly false
+         :spacing 1
+         :orientation "h"
+         :class "cpu_text"
+         :valign "center" 
+      (label 
+        :halign "start"
+        :text {EWW_TEMPS[cpu_temperature_field]}
+      )
+      (label
+        :class "degree"
+        :text "o")
+      (label :text "C")
+    )
+  )
+)
+
+

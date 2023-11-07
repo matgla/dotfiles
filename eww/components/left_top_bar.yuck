@@ -1,0 +1,24 @@
+(include "common/components/logo.yuck")
+(include "common/components/volume.yuck")
+(include "common/components/workspaces.yuck")
+(include "common/components/separator.yuck")
+
+
+
+(defwidget left_top_bar[]
+  (box
+    :class "left_top_bar"
+    :orientation "h"
+    :valign "center"
+    :space-evenly false 
+    :halign "start"
+    :spacing 5
+    (logo)
+    (separator) 
+    (workspace_widget)
+    (separator)
+    (volume) 
+  )
+)
+
+

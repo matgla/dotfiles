@@ -1,0 +1,17 @@
+(defpoll clock_time
+  :interval 
+  "1s" "date '+%H:%M'"
+)
+
+
+(defwidget clock []
+  (box :class "clock"
+       :orientation "h"
+       :halign "start"
+       :spacing 10
+       :space-evenly false
+    (label :class "clock_label" :text "") 
+    (label :text clock_time)
+  )
+)
+

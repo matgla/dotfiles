@@ -1,0 +1,8 @@
+(defwidget logo []
+  (box :class "logo"
+       :orientation "h"
+       :halign "start"
+    (button :onclick "" "") 
+  )
+)
+
