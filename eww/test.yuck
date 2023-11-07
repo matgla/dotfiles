@@ -1,0 +1,19 @@
+(defwidget bar []
+  (label :text "Hello")
+)
+
+(defwindow bar
+  :monitor 0
+  :exclusive true
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "2px"
+                      :width "99%"
+                      :height "2%"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "2%")
+  :stacking "bg"
+  :wm-ignore false 
+  (bar)
+)
+

@@ -1,0 +1,251 @@
+; (defwidget bar []
+;  (centerbox :orientation "h"
+;    (modules_left)
+;    (modules_center) 
+;    (modules_right)
+;  )
+;)
+;
+;(defwidget modules_left []
+;  (box
+;    :class "modules_left"
+;    :orientation "h"
+;    :valign "center"
+;    :space-evenly false 
+;    :halign "start"
+;    :spacing 5
+;    (logo)
+;    (space) 
+;    (workspace_widget)
+;    (space)
+;    (volume) 
+;  )
+;)
+;
+;(defwidget modules_center [] 
+;  (box 
+;    :class "modules_center"
+;    (music)
+;  )
+;)
+;
+;(defwidget modules_right [] 
+;  (box 
+;      :class "modules_right"
+;      :space-evenly false
+;      :spacing 5 
+;      :valign "center"
+;      :halign "end"
+;    (cpu)
+;    (space)
+;    (ram)
+;    (space)
+;    (clock)
+;    (space)
+;    (calendar_icon)
+;    (space)
+;    (battery)
+;    (space)
+;    (power)
+;  )
+;)
+;
+;(defpoll volume_icon 
+;  :interval "1s"
+;  `scripts/volume.py --icon`)
+;
+;(defwidget volume [] 
+;  (label
+;    :class "volume_icon"
+;    :text volume_icon 
+;  )
+;)
+;
+;(defwidget workspace_widget []
+;  (box :class "workspaces"
+;       :orientation "h"
+;       :space-evenly true
+;       :halign "start"
+;       :spacing 10
+;       :valign "center" 
+;    (literal :content workspaces)
+;  )
+;)
+;
+;(defwidget logo []
+;  (box :class "logo"
+;       :orientation "h"
+;       :halign "start"
+;    (button :onclick "" "") 
+;  )
+;)
+;
+;(deflisten current_song 
+;  `./scripts/scroll_song.sh` 
+;)
+;
+;(defpoll clock_time
+;  :interval 
+;  "1s" "date '+%H:%M'"
+;)
+;
+;(deflisten music_cover 
+;  `playerctl --follow metadata mpris:artUrl`
+;)
+;
+;(defwidget music []
+;  (box
+;    :space-evenly false 
+;    :spacing 8
+;    (box 
+;      :width 22
+;      :height 22
+;      :class {strlength(music_cover) != 0 ? "music_cover" : ""}
+;      :style "background-image: url('${music_cover}')")
+;    (label
+;      :limit-width 60
+;      :text current_song)
+;  )
+;)
+;
+;(defwidget power []
+;  (box :class "power"
+;       :orientation "h"
+;       :halign "end"
+;       :space-evenly true 
+;    (label 
+;      :class "power_icon" 
+;      :text "")
+;  )
+;)
+;
+;(defwidget space []
+;  (label
+;    :valign "center"
+;    :class "space"
+;    :text "|"
+;  )
+;)
+;
+;(defwidget ram []
+;  (box 
+;    :space-evenly false 
+;    :spacing 4
+;    :valign "center" 
+;    (label :valign "center" :text " ")
+;    (label 
+;      :valign "center" 
+;      :xalign 1 
+;      :text {round(EWW_RAM["used_mem"]/1024/1024/1024, 1)}
+;    )
+;    (label :valign "center" :text "G")
+;    (label :valign "center" :text "/")
+;    (label :valign "center" :text {round(EWW_RAM["total_mem"]/1024/1024/1024, 1)})
+;    (label :valign "center" :text "G")
+;  )
+;)
+;
+;(defwidget cpu []
+;  (box  
+;    :space-evenly false 
+;    :spacing 4 
+;    (label :valign "center" :text " ")
+;    (box :class "cpu_graph"
+;      (graph 
+;        :width 40
+;        :value {EWW_CPU["avg"]}
+;        :thickness 2 
+;        :time-range "30s"
+;        :min 0
+;        :max 100
+;        :dynamic false
+;        :line-style "round"
+;      )
+;    )
+;    (box :space-evenly false
+;         :spacing 1
+;         :orientation "h"
+;         :class "cpu_text"
+;         :valign "center" 
+;      (literal 
+;        :valign "center"
+;        ;;:class "text"
+;        :halign "start"
+;        :content "test ";{EWW_TEMPS["CORETEMP_PACKAGE_ID_0"]}
+;      )
+;      (label 
+;        :halign "start"
+;        :text {EWW_TEMPS["CORETEMP_PACKAGE_ID_0"]}
+;      )
+;      (label
+;        :class "degree"
+;        :text "o")
+;      (label :text "C")
+;    )
+;  )
+;)
+;
+;(defwidget clock []
+;  (box :class "clock"
+;       :orientation "h"
+;       :halign "start"
+;       :spacing 10
+;       :space-evenly false
+;    (label :class "clock_label" :text "") 
+;    (label :text clock_time)
+;  )
+;)
+;
+;
+;(defwidget calendar_icon [] 
+;  (label 
+;    :class "calendar"
+;    :text " "
+;  )
+;)
+;
+;(defwidget battery []
+;  (box
+;    :space-evenly false 
+;    :spacing 8 
+;    (label :text { EWW_BATTERY["BAT1"].status != "Charging" ?
+;      (EWW_BATTERY["BAT1"].capacity < 5 ? "󱃍":
+;      EWW_BATTERY["BAT1"].capacity < 15 ? "󰁺":
+;      EWW_BATTERY["BAT1"].capacity < 25 ? "󰁻":
+;      EWW_BATTERY["BAT1"].capacity < 35 ? "󰁼":
+;      EWW_BATTERY["BAT1"].capacity < 45 ? "󰁽":
+;      EWW_BATTERY["BAT1"].capacity < 55 ? "󰁾":
+;      EWW_BATTERY["BAT1"].capacity < 65 ? "󰁿":
+;      EWW_BATTERY["BAT1"].capacity < 75 ? "󰂀": 
+;      EWW_BATTERY["BAT1"].capacity < 85 ? "󰂁":
+;      EWW_BATTERY["BAT1"].capacity < 95 ? "󰂂":"󰁹") : (
+;      EWW_BATTERY["BAT1"].capacity < 5 ?  "󰢟":
+;      EWW_BATTERY["BAT1"].capacity < 15 ? "󰢜":
+;      EWW_BATTERY["BAT1"].capacity < 25 ? "󰂆":
+;      EWW_BATTERY["BAT1"].capacity < 35 ? "󰂇":
+;      EWW_BATTERY["BAT1"].capacity < 45 ? "󰂈":
+;      EWW_BATTERY["BAT1"].capacity < 55 ? "󰢝�����":
+;      EWW_BATTERY["BAT1"].capacity < 65 ? "󰂉":
+;      EWW_BATTERY["BAT1"].capacity < 75 ? "󰢞�����": 
+;      EWW_BATTERY["BAT1"].capacity < 85 ? "󰂊":
+;      EWW_BATTERY["BAT1"].capacity < 95 ? "󰂋":"󰂅"
+;      )
+;    })
+;  )
+;)
+;
+;(defwindow bar
+;  :monitor 0
+;  :exclusive true
+;  :windowtype "dock"
+;  :geometry (geometry :x "0%"
+;                      :y "2px"
+;                      :width "99%"
+;                      :height "2%"
+;                      :anchor "top center")
+;  :reserve (struts :side "top" :distance "2%")
+;  :stacking "bg"
+;  :wm-ignore false 
+;  (bar)
+;)
+;
