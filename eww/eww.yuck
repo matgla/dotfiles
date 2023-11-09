@@ -19,7 +19,7 @@
   :geometry (geometry :x "0%"
                       :y "2px"
                       :width "99%"
-                      :height "2%"
+                      :height "0%"
                       :anchor "top center")
   :reserve (struts :side "top" :distance "2%")
   :stacking "bg"

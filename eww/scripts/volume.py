@@ -1,4 +1,4 @@
-#!/bin/python3 
+#!/bin/python3
 
 import alsaaudio
 import argparse
@@ -12,16 +12,16 @@ args, _ = parser.parse_known_args()
 m = alsaaudio.Mixer()
 v = int(m.getvolume()[0])
 
-if (args.icon):
+if args.icon:
     if int(m.getmute()[0]) == 1:
-        print("󰝟") 
+        print("󰝟")
     else:
-        if (v < 30):
-            print("󰕿")
-        elif (v > 30 and v < 70):
-            print("󰖀")
-        else: 
-            print("󰕾")
+        if v < 30:
+            print("")
+        elif v > 30 and v < 70:
+            print("")
+        else:
+            print("")
 
-if (args.value):
+if args.value:
     print(str(v) + "%")

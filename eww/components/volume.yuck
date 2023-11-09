@@ -5,6 +5,7 @@
 (defwidget volume [] 
   (label
     :class "volume_icon"
+    :valign "center"
     :text volume_icon 
   )
 )

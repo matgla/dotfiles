@@ -2,7 +2,7 @@
   (box  
     :space-evenly false 
     :spacing 4 
-    (label :valign "center" :text "󰍛 ")
+    (label :valign "center" :text " ")
     (box :class "cpu_graph"
       (graph 
         :width 40
