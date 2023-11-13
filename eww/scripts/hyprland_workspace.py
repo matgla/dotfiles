@@ -3,9 +3,10 @@
 import subprocess
 import os
 import socket
+import traceback
 
 icon_empty = ""
-icon_occupied = ""
+icon_occupied = ""
 
 
 def get_occupied():
@@ -49,6 +50,7 @@ hyprland_socket.connect(hyprland_server)
 resp = subprocess.run("hyprctl activeworkspace", shell=True, stdout=subprocess.PIPE)
 workspace = int(resp.stdout.decode("utf-8").split()[2])
 active_workspace = update_workspaces(workspace)
+
 while True:
     try:
         event = hyprland_socket.recv(4096).decode("utf-8")
@@ -58,6 +60,8 @@ while True:
             if "destroyworkspace" in item:
                 update_workspaces(active_workspace)
 
-    finally:
+    except Exception as e:
+        with open("/tmp/hyprwrk.log", "w+") as file:
+            file.write("Failed with exception: " + traceback.format_exc())
         hyprland_socket.close()
         break
