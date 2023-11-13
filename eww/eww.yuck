@@ -1,6 +1,7 @@
-(deflisten workspaces
+(deflisten workspaces 
   `$HOME/.config/eww/scripts/hyprland_workspace.py`)
- 
-(include "../common/eww/test.yuck")
 
+(defvar cpu_temperature_field "CORETEMP_PACKAGE_ID_0")
+(defvar battery_enable true)
 
+(include "common/eww.yuck")
